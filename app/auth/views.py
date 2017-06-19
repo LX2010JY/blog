@@ -24,6 +24,17 @@ def logout():
     flash('You have been logged out.')
     return redirect(url_for('main.index'))
 
+@auth.route('/change_password')
+@login_required
+def change_password():
+    pass
+
+@auth.route('/change_email_request')
+@login_required
+def change_email_request():
+    pass
+
+
 @auth.route('/register',methods=['POST','GET'])
 def register():
     form = RegistretionForm()

@@ -2,6 +2,8 @@ from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from . import login_manager
+from time import time
+from datetime import datetime
 #定义数据表模型 （难）
 class Role(db.Model):
     '''
@@ -27,8 +29,17 @@ class User(UserMixin,db.Model):
 
     username = db.Column(db.String(64),unique=True,index=True)
     password_hash = db.Column(db.String(128))
+
+    name = db.Column(db.String(64))
+    location = db.Column(db.String(64))
+    about_me = db.Column(db.Text())
+    member_since = db.Column(db.DateTime(),default = datetime.utcnow)
+    last_seen = db.Column(db.DateTime(),default=datetime.utcnow)
+
     #定义外键 ，话说外键也是 数据表的一个字段，别特殊化了
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+
+    posts = db.relationship('Post',backref='author',lazy='dynamic')
 
     @property
     def password(self):
@@ -45,5 +56,16 @@ class User(UserMixin,db.Model):
     def load_user(user_id):
         return User.query.get(int(user_id))
 
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
+
     def __repr__(self):
         return '<User %r>' % self.username
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer,primary_key=True)
+    body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime,index=True,default=datetime.utcnow)
+    author_id = db.Column(db.Integer,db.ForeignKey('users.id'))

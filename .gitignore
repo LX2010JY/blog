@@ -1,3 +1,6 @@
 venv/
 blog_uwsgi.sock
 __pycache__/
+.idea/
+data/
+migrations/

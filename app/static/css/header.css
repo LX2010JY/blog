@@ -1,0 +1,24 @@
+/*导航条颜色修改*/
+.navbar-inverse{
+    background:linear-gradient(to bottom,#086ed5,#055db5) !important;
+    border:none;
+    color:white;
+}
+.navbar-inverse .navbar-brand {color:white;}
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover{
+    background-color:#055db5;
+
+}
+.navbar-inverse li,.navbar-inverse a{
+    color:white !important;
+}
+.dropdown a:hover{
+    background-color:#086ed5 !important;
+}
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle{
+    border-color:#055db5;
+}
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{border-color:#fff}
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover{
+    background-color:#086ed5;
+}

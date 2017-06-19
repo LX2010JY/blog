@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+<!--super 获取模板本来就存在的内容-->
+{% block title %}
+    {{ super() }}
+    -2010
+{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Edit Your Profile:</h1>
+</div>
+<div class="rows">
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+        {{ wtf.quick_form(form) }}
+    </div>
+</div>
+{% endblock %}

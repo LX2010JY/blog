@@ -4,8 +4,12 @@
 {% block head %}
 {{ super() }}
 <script src="{{ url_for('static',filename='js/vue.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/header.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/styles.css') }}" />
 <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/x-icon">
+<style>
+</style>
 {% endblock %}
 
 {% block navbar %}
@@ -18,17 +22,27 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Flasky</a>
+            <a class="navbar-brand" href="/">部落格</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
+                <li><a href="{{ url_for('main.index') }}">主页</a></li>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('main.user', username=current_user.username) }}">个人中心</a></li>
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('auth.logout') }}">登出</a> </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">账户 <b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="background-color:#055db5;margin-top:-1px;">
+                        <li><a href="{{ url_for('auth.change_password') }}">修改密码</a></li>
+                        <li><a href="{{ url_for('auth.change_email_request') }}">修改邮箱</a></li>
+                        <li><a href="{{ url_for('auth.logout') }}">注销</a></li>
+                    </ul>
+                </li>
                 {% else %}
-                <li><a href="{{ url_for('auth.login') }}">登录</a> </li>
+                <li><a href="{{ url_for('auth.login') }}">登录</a></li>
                 {% endif %}
             </ul>
         </div>
