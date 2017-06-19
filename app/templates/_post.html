@@ -3,7 +3,11 @@
     <li class="post">
         <div class="profile-thumbnail" >
             <a href="{{ url_for('.user',username=post.author.username) }}">
-                <img width="40px" src="{{ url_for('static', filename='img/favicon.jpg') }}" class="img-rounded profile-thumbnail">
+                {% if post.author.avatar %}
+                    <img width="40px" src="{{ url_for('main.uploaded_file',filename=post.author.avatar) }}" class="img-rounded profile-thumbnail">
+                {% else %}
+                    <img width="40px" src="{{ url_for('static', filename='img/favicon.jpg') }}" class="img-rounded profile-thumbnail">
+                {% endif %}
             </a>
         </div>
         <div class="post-content">
