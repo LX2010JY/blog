@@ -5,6 +5,9 @@
 {% endblock %}
 {% block page_content %}
 <div class="page-header">
+    {% if user.avatar %}
+        <img src="{{ url_for('main.uploaded_file',filename=user.avatar) }}" />
+    {% endif %}
     <h1>{{ user.username }}</h1>
     {% if user.name or user.location %}
     <p>

@@ -1,10 +1,18 @@
 from datetime import datetime
-from flask import render_template,session,redirect,url_for,abort,flash
+from flask import render_template,session,redirect,url_for,abort,flash,request,send_from_directory
 from flask_login import login_required,current_user
+from werkzeug import secure_filename
 from . import main
 from .forms import NameForm,EditProfileForm,PostForm
 from .. import  db
 from ..models import User,Post
+import os
+from datetime import datetime
+import time
+
+ALLOWED_EXTENSION = set(['png','jpeg','jpg','gif']);
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSION
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -14,26 +22,14 @@ def index():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('.index'))
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('index.html',form=form,posts=posts,current_time = datetime.utcnow())
+    page = request.args.get('page',1,type=int)
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page,per_page=10,error_out=False)
+    posts = pagination.items
+    # posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html',form=form,pagination=pagination,posts=posts,current_time = datetime.utcnow())
 
-# @main.route('/',methods=['GET','POST'])
-# def _index():
-#     name = None
-#     form = NameForm()
-#     if form.validate_on_submit():
-#         user = User.query.filter_by(username=form.name.data).first()
-#         if user is None:
-#             user = User(username=form.name.data)
-#             db.session.add(user)
-#             db.session.commit()
-#             session['known'] = False
-#         else:
-#             session['known'] = True
-#         session['name'] = form.name.data
-#         form.name.data = ''
-#         return redirect(url_for('main.index'))
-#     return render_template('2_index.html', form=form, name=session.get('name'),current_time = datetime.utcnow(),known=session.get('known'))
+
+
 
 #个人中心
 @main.route('/user/<username>')
@@ -71,11 +67,22 @@ def edit_profile():
 
 
 
+@main.route('/upload',methods=['GET','POST'])
+@login_required
+def upload():
+    if request.method == 'POST':
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            extend = filename.rsplit('.',1)[1]
+            filename = current_user.username + "_" + str(int(time.mktime(datetime.now().timetuple())))+"."+extend
+            file.save(os.path.join(os.getcwd(),'uploads/'+filename))
+            current_user.avatar = filename
+            db.session.add(current_user)
+            db.session.commit()
+            return redirect(url_for('.user',username=current_user.username))
+    abort(500)
 
-@main.route('/redirect')
-def redit():
-    '''
-        跳转
-    :return:
-    '''
-    return redirect('http://www.baidu.com')
+@main.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(os.path.join(os.getcwd(),'uploads'),filename)

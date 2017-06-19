@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
 <!--super 获取模板本来就存在的内容-->
 {% block title %}
     {{ super() }}
@@ -33,5 +34,8 @@
     {{ wtf.quick_form(form) }}
     <div>
         {% include '_post.html' %}
+        <div class="pagination">
+            {{ macros.pagination_widget(pagination,'.index') }}
+        </div>
     </div>
 {% endblock %}
