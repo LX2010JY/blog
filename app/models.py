@@ -18,6 +18,11 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role %r' % self.name
+class Follow(db.Model):
+    __tablename__ = 'follows'
+    follower_id = db.Column(db.Integer,db.ForeignKey('users.id'),primary_key=True)
+    followed_id = db.Column(db.Integer,db.ForeignKey('users.id'),primary_key=True)
+    timestamp = db.Column(db.DateTime,default=datetime.utcnow)
 
 class User(UserMixin,db.Model):
     '''
@@ -41,7 +46,10 @@ class User(UserMixin,db.Model):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
 
     posts = db.relationship('Post',backref='author',lazy='dynamic')
-
+    #关注了哪些人
+    followed = db.relationship('Follow',foreign_keys=[Follow.follower_id],backref=db.backref('follower',lazy='joined'),lazy='dynamic',cascade='all,delete-orphan')
+    #那些人关注了我
+    followers = db.relationship('Follow',foreign_keys=[Follow.followed_id],backref=db.backref('followed',lazy='joined'),lazy='dynamic',cascade='all,delete-orphan')
     @property
     def password(self):
         raise AttributeError('密码是不可读取的属性')
@@ -60,6 +68,24 @@ class User(UserMixin,db.Model):
     def ping(self):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
+    #关注某人
+    def follow(self,user):
+        if not self.is_following(user):
+            f = Follow(follower=self,followed=user)
+            db.session.add(f)
+            db.session.commit()
+    #取消关注
+    def unfollow(self,user):
+        f = self.followed.filter_by(followed_id=user.id).first()
+        if f:
+            db.session.delete(f)
+            db.session.commit()
+    #是否关注了某某某
+    def is_following(self,user):
+        return self.followed.filter_by(followed_id=user.id).first() is not None
+    #是否被某某某关注
+    def is_followed_by(self,user):
+        return self.followers.filter_by(follower_id=user.id).first() is not None
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -70,3 +96,4 @@ class Post(db.Model):
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime,index=True,default=datetime.utcnow)
     author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+

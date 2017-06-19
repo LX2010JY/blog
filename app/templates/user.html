@@ -4,10 +4,13 @@
     -2010
 {% endblock %}
 {% block page_content %}
-<div class="page-header">
+<div class="page-header rows clearfix">
+    <div class="col-md-5" style="text-align: center;overflow: hidden">
     {% if user.avatar %}
-        <img src="{{ url_for('main.uploaded_file',filename=user.avatar) }}" />
+        <img style="max-width: 100%" src="{{ url_for('main.uploaded_file',filename=user.avatar) }}" />
     {% endif %}
+    </div>
+    <div class="col-md-7">
     <h1>{{ user.username }}</h1>
     {% if user.name or user.location %}
     <p>
@@ -32,7 +35,21 @@
     <a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
         编辑
     </a>
+    {% else %}
+    {% if not current_user.is_following(user) %}
+        <a href="{{ url_for('main.follow',username=user.username) }}" class="btn btn-primary">关注</a>
+    {% else %}
+        <a href="{{ url_for('main.unfollow',username=user.username) }}" class="btn btn-default">取消关注</a>
     {% endif %}
+    <a>Followers:<span class="badge">{{ user.followers.count() }}</span> </a>
+    <a>
+        Following:<span class="badge">{{ user.followed.count() }}</span>
+    </a>
+    {% if user.is_following(current_user) %}
+        |<span class="label label-default">Follows you</span>
+    {% endif %}
+    {% endif %}
+    </div>
 </div>
 <h3>Posts by {{ user.username }}</h3>
 {% include '_post.html' %}

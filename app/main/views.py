@@ -86,3 +86,38 @@ def upload():
 @main.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(os.path.join(os.getcwd(),'uploads'),filename)
+
+#关注用户
+@main.route('/follow/<username>')
+@login_required
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('无此用户')
+        return redirect(url_for('.index'))
+    if current_user.is_following(user):
+        flash('你已经关注了此用户了')
+        return redirect(url_for('.user',username=username))
+    current_user.follow(user)
+    flash('关注成功')
+    return redirect(url_for('.user',username=username))
+#取消关注
+@main.route('/unfollow/<username>')
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('无此用户')
+        return redirect(url_for('.index'))
+    if not current_user.is_following(user):
+        flash('你已经取消关注了')
+        return redirect(url_for('.user',username=username))
+    current_user.unfollow(user)
+    flash('取消关注成功')
+    return redirect(url_for('.user',username=username))
+# @main.route('/followers/<username>')
+# def followers(username):
+#     user = User.query.filter_by(username=username).first()
+#     if user is None:
+#         flash('查无此人')
+#         return redirect(url_for('.index'))
+#     pass
