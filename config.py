@@ -16,7 +16,12 @@ class DevelopmentConfig(Config):
     '''
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///'+os.path.join(basedir,'data/data-dev.sqlite')
-
+class DevMysqlConfig(Config):
+    '''
+        使用mysql数据库
+    '''
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost/test'
 class TestingConfig(Config):
     '''
         测试环境配置
@@ -34,5 +39,5 @@ config = {
     'development' : DevelopmentConfig,
     'testing' : TestingConfig,
     'production' : ProductionConfig,
-    'default' : DevelopmentConfig
+    'default' : DevMysqlConfig
 }
