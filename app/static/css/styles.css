@@ -31,3 +31,8 @@ div.post-content {
     margin-left: 48px;
     min-height: 48px;
 }
+
+.right{
+    min-height: 500px;background-color: #EFEFEF;
+    border:1px solid #bbb;border-radius: 2px;
+}

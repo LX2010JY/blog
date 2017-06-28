@@ -45,7 +45,7 @@ def user(username):
     if user is None:
         abort(404)
     posts = user.posts.order_by(Post.timestamp.desc()).all()
-    return render_template('user.html',user=user,posts=posts)
+    return render_template('user.html',user=user,posts=posts,hide_right=True)
 
 #个人信息编辑
 @main.route('/edit-profile',methods=['GET','POST'])
@@ -63,7 +63,7 @@ def edit_profile():
     form.name.data = current_user.name
     form.location.data = current_user.location
     form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html',form=form)
+    return render_template('edit_profile.html',form=form,hide_right=True)
 
 
 
