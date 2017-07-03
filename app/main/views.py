@@ -5,8 +5,9 @@ from werkzeug import secure_filename
 from . import main
 from .forms import NameForm,EditProfileForm,PostForm
 from .. import  db
-from ..models import User,Post
+from ..models import User,Post,Mblog
 import os
+import json
 from datetime import datetime
 import time
 
@@ -114,10 +115,23 @@ def unfollow(username):
     current_user.unfollow(user)
     flash('取消关注成功')
     return redirect(url_for('.user',username=username))
-# @main.route('/followers/<username>')
-# def followers(username):
-#     user = User.query.filter_by(username=username).first()
-#     if user is None:
-#         flash('查无此人')
-#         return redirect(url_for('.index'))
-#     pass
+
+@main.route('/user/spider')
+@login_required
+def spider():
+    '''
+        只有我能看到 哈哈哈哈哈
+    :return:
+    '''
+    if current_user.username != 'Lxiao':
+        abort(404)
+    page = request.args.get('page',1,type=int)
+    pagination = Mblog.query.order_by(Mblog.id.asc()).paginate(page,per_page=20,error_out=False)
+    blogs = pagination.items
+    for blog in blogs:
+        if blog.pics:
+            blog.pics = json.loads(blog.pics)
+        else:
+            blog.pics = ''
+    return render_template('spider.html',pagination=pagination,blogs=blogs,hide_right=True)
+

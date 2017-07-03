@@ -96,4 +96,16 @@ class Post(db.Model):
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime,index=True,default=datetime.utcnow)
     author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+class Mblog(db.Model):
+    __tablename__ = 'mblog'
+    id = db.Column(db.Integer,primary_key=True)
+    m_id = db.Column(db.String(20),index=True)
+    text = db.Column(db.Text)
+    pics = db.Column(db.Text)
+    thumbnail_pic = db.Column(db.Text)
+    bmiddle_pic = db.Column(db.Text)
+    original_pic = db.Column(db.Text)
+    created_at = db.Column(db.String(20))
+    
+
 

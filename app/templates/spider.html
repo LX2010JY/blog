@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+{% block title %}
+    {{ super() }}
+    -2010
+{% endblock %}
+{% block head %}
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/spider.css') }}" />
+{% endblock %}
+
+{% block page_content2 %}
+<div class="main">
+    {% for blog in blogs %}
+    <div class="rows clearfix blog">
+        <div class="col-md-12 text">
+            <span style="float: left">{{ blog.text|safe }}</span>
+            <span class="created_at">{{blog.created_at}}</span>
+        </div>
+        <div class="rows clearfix">
+            {% for pic in blog.pics %}
+            <div class="col-sm-4 peit">
+                <img style="cursor: pointer" src="{{pic.small}}" width="100%" height="100%" onclick="show_big_pic('{{pic.large}}');return false;"/>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    <div>
+        <div class="pagination">
+            {{ macros.pagination_widget(pagination,'main.spider') }}
+        </div>
+    </div>
+    <div id="bg" class="bg" onclick="hide_big_pic();return false;">
+        <img class="show_big animation" id="show_big" src="" height="100%"/>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+    function show_big_pic(url) {
+        $("#show_big").attr('src',url);
+        $("#bg").fadeIn();
+        $("#show_big").removeClass('animation');
+    }
+    function hide_big_pic() {
+        $("#show_big").addClass('animation');
+        $("#bg").fadeOut(1200);
+    }
+</script>
+{% endblock %}
