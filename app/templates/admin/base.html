@@ -1,0 +1,27 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+    雨-后台管理
+{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="left_bar" style="width: 150px;">
+        <img src="" />
+        <ul>
+            <li>博客管理</li>
+            <li>账号管理</li>
+            <li>标签日志</li>
+            <li>写点什么</li>
+        </ul>
+    </div>
+    <div class="main" style="padding-left: 210px;">
+        {% block page_content %}
+
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
