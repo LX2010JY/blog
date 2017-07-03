@@ -1,0 +1,20 @@
+body{font-family: Monaco ,"Microsoft Himalaya"}
+.left_bar{position: fixed;left: 0;top:0;bottom: 0;width: 155px;background-color: #333;color:white;border-right: 5px solid #FFF}
+.left_bar .avatar{text-align: center;margin: 50px auto;}
+.left_bar .menu{list-style-type: none;margin: 0;padding: 0}
+.left_bar .menu .item{line-height: 50px;font-size: 16px;cursor: pointer;text-align: center}
+.left_bar .menu .active{background-color: #666;position: relative}
+.item:hover{background-color: #555}
+.active:hover{background-color: #666 !important;}
+.active:before{content: '';border-top:5px solid #666;border-bottom: 5px solid #666;border-right:5px solid #FFF;width: 0;height: 0;position: absolute;top:20px;right: 0;}
+.main{padding-left: 160px;width: 100%;padding-right: 50px;padding-bottom: 50px;background-color: #fff;margin-top: 70px;}
+
+.nav{height: 50px;line-height: 50px;background-color: #333;color:#fff;position:fixed;left: 155px;right: 0;top:0;padding-left: 5px;padding-right: 10px;overflow: hidden;white-space: nowrap}
+.admin-title{font-size: 20px;font-weight: bold;float: left}
+.drop-menu{position: absolute;top:50px;right:0;list-style-type: none;white-space: nowrap;margin: 0;padding: 0;background-color: #666;min-width: 120px;display: none}
+.drop-menu li{line-height: 40px;text-align: center;color: #FFF;}
+.drop-menu a{color: #FFF;text-decoration: none}
+.drop-menu a:hover{color: #FFF;text-decoration: none}
+.accord{list-style-type: none;float: right;position: relative}
+.accord:hover{background-color: #666}
+.accord:hover .drop-menu{display: block}

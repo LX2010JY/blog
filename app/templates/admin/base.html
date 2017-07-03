@@ -4,22 +4,42 @@
 {% endblock %}
 {% block head %}
 {{ super() }}
+<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/admin.css') }}" />
+<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/x-icon">
 {% endblock %}
 {% block content %}
-<div class="container">
-    <div class="left_bar" style="width: 150px;">
-        <img src="" />
-        <ul>
-            <li>博客管理</li>
-            <li>账号管理</li>
-            <li>标签日志</li>
-            <li>写点什么</li>
+<div style="padding: 0;margin: 0">
+    <!--这是左侧导航条-->
+    <div class="left_bar">
+        <div class="avatar">
+            <img src="{{ url_for('static',filename='img/favicon.jpg') }}" width="80" height="80" class="img-circle"/>
+        </div>
+        <ul class="menu">
+            <li class="item active">博客管理</li>
+            <li class="item">账号管理</li>
+            <li class="item">标签日志</li>
+            <li class="item">写点什么</li>
         </ul>
     </div>
-    <div class="main" style="padding-left: 210px;">
-        {% block page_content %}
+    <!--这是顶部导航条-->
+    <div class="nav">
+        <span class="admin-title">雨殇、影忆(2010)后台管理系统</span>
+        <ul class="accord">
+           <li style="position: relative">
+               <span style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">账户 <b class="caret"></b></span>
+               <ul class="drop-menu">
+                    <li><a href="{{ url_for('auth.change_password') }}">修改密码</a></li>
+                    <li><a href="{{ url_for('auth.change_email_request') }}">修改邮箱</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">注销</a></li>
+               </ul>
+           </li>
+        </ul>
+    </div>
+    <!--这是正文-->
+    <div class="main">
+    {% block page_content %}
 
-        {% endblock %}
+    {% endblock %}
     </div>
 </div>
 {% endblock %}
