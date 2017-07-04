@@ -23,6 +23,9 @@ def index():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('.index'))
+    elif not current_user.is_authenticated and form.validate_on_submit():
+        flash('未登录不能发送信息')
+        return redirect(url_for('.index'))
     page = request.args.get('page',1,type=int)
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page,per_page=10,error_out=False)
     posts = pagination.items

@@ -1,18 +1,43 @@
-{% extends "base.html" %}
+{% extends "bootstrap/base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% block title %}{{ super() }}-登录{% endblock %}
 
-{% block page_content2 %}
-<div class="page-header">
-    <h1>Login</h1>
-</div>
-<div class="col-md-4">
-    {{ wtf.quick_form(form) }}
-    <p>
-        New User?
-        <a href="{{ url_for('auth.register') }}">
-            Click here to register
-        </a>
-    </p>
+{% block title %}雨（登录）{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/x-icon">
+    <style>
+        html,body{font-family: Monaco,"Microsoft YaHei";background-color: #333;color:#FFF;height: 100%}
+        .login{background-color: #009b95;color:#FFF;padding: 10px 20px;border-radius: 5px;}
+        .login .sub{margin-top: 15px;margin-bottom: 20px;}
+    </style>
+{% endblock %}
+{% block content %}
+<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4" style="height: 100%">
+    <div style="margin-top: 25%">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        <div class="login">
+            <div class="page-header">
+                <h1>雨（后台登陆）</h1>
+            </div>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div>
+                    {{ form.email.label }}{{ form.email(class="form-control",placeholder="邮箱/用户名") }}
+                </div>
+                <div>
+                    {{ form.password.label }}{{ form.password(class="form-control",placeholder="密码") }}
+                </div>
+    {#            <div>#}
+    {#                {{ form.remember_me() }}{{ form.remember_me.label }}#}
+    {#            </div>#}
+                {{ form.submit(class="btn btn-default btn-block sub") }}
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -39,20 +39,20 @@
                 {% endif %}
                 {% endif %}
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if current_user.is_authenticated %}
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">账户 <b class="caret"></b></a>
-                    <ul class="dropdown-menu" style="background-color:#055db5;margin-top:-1px;">
-                        <li><a href="{{ url_for('auth.change_password') }}">修改密码</a></li>
-                        <li><a href="{{ url_for('auth.change_email_request') }}">修改邮箱</a></li>
-                        <li><a href="{{ url_for('auth.logout') }}">注销</a></li>
-                    </ul>
-                </li>
-                {% else %}
-                <li><a href="{{ url_for('auth.login') }}">登录</a></li>
-                {% endif %}
-            </ul>
+{#            <ul class="nav navbar-nav navbar-right">#}
+{#                {% if current_user.is_authenticated %}#}
+{#                <li class="dropdown">#}
+{#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">账户 <b class="caret"></b></a>#}
+{#                    <ul class="dropdown-menu" style="background-color:#055db5;margin-top:-1px;">#}
+{#                        <li><a href="{{ url_for('auth.change_password') }}">修改密码</a></li>#}
+{#                        <li><a href="{{ url_for('auth.change_email_request') }}">修改邮箱</a></li>#}
+{#                        <li><a href="{{ url_for('auth.logout') }}">注销</a></li>#}
+{#                    </ul>#}
+{#                </li>#}
+{#                {% else %}#}
+{#                <li><a href="{{ url_for('auth.login') }}">登录</a></li>#}
+{#                {% endif %}#}
+{#            </ul>#}
         </div>
     </div>
 </div>

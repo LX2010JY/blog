@@ -18,12 +18,14 @@ def index():
 @admin.route('/blogs')
 @login_required
 def blogs():
-    list = Blog.query.order_by(Blog.created_at.desc()).all()
+    page = request.args.get('page',1,type=int)
+    pagination = Blog.query.order_by(Blog.created_at.desc()).paginate(page,per_page=10,error_out=False)
+    list = pagination.items
     xh = 0
     for item in list:
         xh+=1
         item.xh = xh
-    return render_template('admin/blogs.html',list=list,type=2)
+    return render_template('admin/blogs.html',pagination=pagination,list=list,type=2)
 
 
 @admin.route('/login')
