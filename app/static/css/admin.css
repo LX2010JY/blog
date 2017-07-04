@@ -5,16 +5,45 @@ body{font-family: Monaco ,"Microsoft Himalaya"}
 .left_bar .menu .item{line-height: 50px;font-size: 16px;cursor: pointer;text-align: center}
 .left_bar .menu .active{background-color: #666;position: relative}
 .item:hover{background-color: #555}
+.item a{color: #FFF;text-decoration: none;display: inline-block;width: 100%;height: 100%}
+.item a:hover{text-decoration: none;color: #FFF}
 .active:hover{background-color: #666 !important;}
-.active:before{content: '';border-top:5px solid #666;border-bottom: 5px solid #666;border-right:5px solid #FFF;width: 0;height: 0;position: absolute;top:20px;right: 0;}
-.main{padding-left: 160px;width: 100%;padding-right: 50px;padding-bottom: 50px;background-color: #fff;margin-top: 70px;}
+.menu li.active:before{content: '';border-top:5px solid #666;border-bottom: 5px solid #666;border-right:5px solid #FFF;width: 0;height: 0;position: absolute;top:20px;right: 0;}
+.main{padding-left: 160px;width: 100%;padding-right: 10px;padding-bottom: 50px;background-color: #fff;margin-top: 70px;}
 
-.nav{height: 50px;line-height: 50px;background-color: #333;color:#fff;position:fixed;left: 155px;right: 0;top:0;padding-left: 5px;padding-right: 10px;overflow: hidden;white-space: nowrap}
+.nav{height: 50px;line-height: 50px;background-color: #333;color:#fff;position:fixed;left: 155px;right: 0;top:0;padding-left: 5px;padding-right: 10px;white-space: nowrap;z-index: 9999}
 .admin-title{font-size: 20px;font-weight: bold;float: left}
+.admin-title a{color: #FFF}
+.admin-title a:hover{text-decoration: none;color: #FFF}
+a:visited{text-decoration: none}
 .drop-menu{position: absolute;top:50px;right:0;list-style-type: none;white-space: nowrap;margin: 0;padding: 0;background-color: #666;min-width: 120px;display: none}
 .drop-menu li{line-height: 40px;text-align: center;color: #FFF;}
 .drop-menu a{color: #FFF;text-decoration: none}
 .drop-menu a:hover{color: #FFF;text-decoration: none}
-.accord{list-style-type: none;float: right;position: relative}
+.accord{list-style-type: none;float: right;position: relative;overflow: visible;cursor: pointer}
 .accord:hover{background-color: #666}
 .accord:hover .drop-menu{display: block}
+
+.main .data-one{margin: 20px 0;}
+.main .data-two{margin: 20px 0;}
+.main .data-three{margin: 20px 0;}
+.main .data-four{margin: 20px 0}
+.main .data-five{margin: 20px 0}
+
+.main .title_block{position: relative;border-left: 5px solid #333;padding-left: 10px;}
+.main .title{line-height: 40px;border: none;outline: none;width: 100%;font-size: 18px;position: relative;cursor: pointer}
+.main .title_block:after{
+    content: '';
+    width: 0;
+    height: 2px;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    background-color: #009b95;
+    transition: all 0.3s;
+    margin-left: 10px;
+}
+.main .laser:after{
+    width: 100% !important;
+}
+.main label{font-size: 18px;color:#333}

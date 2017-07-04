@@ -46,6 +46,8 @@ class User(UserMixin,db.Model):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
 
     posts = db.relationship('Post',backref='author',lazy='dynamic')
+    blogs = db.relationship('Blog',backref='author',lazy='dynamic')
+
     #关注了哪些人
     followed = db.relationship('Follow',foreign_keys=[Follow.follower_id],backref=db.backref('follower',lazy='joined'),lazy='dynamic',cascade='all,delete-orphan')
     #那些人关注了我
