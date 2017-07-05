@@ -89,3 +89,8 @@
 {{ moment.include_moment() }}
 {{ moment.lang("zh-CN") }}
 {% endblock %}
+
+{% block html %}
+{{ super() }}
+<script src="{{url_for('static',filename='js/dotline.js')}}"></script>
+{% endblock %}
