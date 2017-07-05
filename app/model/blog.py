@@ -23,6 +23,7 @@ class Blog(db.Model):
     title = db.Column(db.String(20))
     btype_id = db.Column(db.Integer,db.ForeignKey('blog_type.id'))
     blog_body = db.Column(db.Text)
+    blog_body_short = db.Column(db.Text)
     tags = db.Column(db.String(255))
     is_show_all = db.Column(db.Integer)
     created_at = db.Column(db.DateTime,default=datetime.utcnow)

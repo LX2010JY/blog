@@ -31,8 +31,13 @@ div.post-content {
     margin-left: 48px;
     min-height: 48px;
 }
-
-.right{
-    min-height: 500px;background-color: #EFEFEF;
-    border:1px solid #bbb;border-radius: 2px;
+/*#right{display: none !important;}*/
+@media screen and (min-width: 720px){
+    #right{
+        min-height: 500px;background-color: #EFEFEF;
+        border:1px solid #bbb;border-radius: 2px;text-align: center;
+    }
+}
+@media screen and (max-width: 720px) {
+    #right{display: none !important;}
 }

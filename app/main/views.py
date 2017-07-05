@@ -6,32 +6,38 @@ from . import main
 from .forms import NameForm,EditProfileForm,PostForm
 from .. import  db
 from ..models import User,Post,Mblog
+from ..model.blog import Blog
 import os
 import json
 from datetime import datetime
 import time
-
+from bs4 import BeautifulSoup
 ALLOWED_EXTENSION = set(['png','jpeg','jpg','gif']);
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSION
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    form = PostForm()
-    if current_user.is_authenticated and form.validate_on_submit():
-        post = Post(body=form.body.data,author=current_user._get_current_object())
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('.index'))
-    elif not current_user.is_authenticated and form.validate_on_submit():
-        flash('未登录不能发送信息')
-        return redirect(url_for('.index'))
-    page = request.args.get('page',1,type=int)
-    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page,per_page=10,error_out=False)
-    posts = pagination.items
-    # posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('index.html',form=form,pagination=pagination,posts=posts,current_time = datetime.utcnow())
+    page = request.args.get('page',type=int)
+    pagination = Blog.query.order_by(Blog.created_at.desc()).paginate(page,per_page=10,error_out=False)
+    blogs = pagination.items
+    if len(blogs)==0:
+        abort(404)
+    for blog in blogs:
+        if blog.blog_body_short is None:
+            BsObj = BeautifulSoup(blog.blog_body,'html.parser')
+            blog.blog_body_short = BsObj.get_text()[0:300] if len(BsObj.get_text())>300 else BsObj.get_text()
+            db.session.add(blog)
+            db.session.commit()
+    return render_template('index.html',pagination=pagination,blogs=blogs)
 
+@main.route('/blog/<int:blog_id>')
+def blog(blog_id):
+    blog = Blog.query.filter_by(id=blog_id).first()
+    if blog is None:
+        abort(404)
+    else:
+        return render_template('blog.html',blog=blog)
 
 
 

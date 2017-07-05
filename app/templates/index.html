@@ -2,40 +2,27 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
 <!--super 获取模板本来就存在的内容-->
-{% block title %}
-    {{ super() }}
-    -2010
-{% endblock %}
-
+{% block head %}{{ super() }} <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}"/> {% endblock %}
+{% block title %}{{ super() }}-2010{% endblock %}
 {% block page_content %}
-    <!--jinja2的函数定义-->
-    {% macro welcome(name,known) %}
-        <h1>Hello,{% if name %} {{ name }} {% else %}Stranger{% endif %}</h1>
-        {% if not known %}
-        <p>Pleased to meet you!</p>
-        {% else %}
-        <p>Happy to see you again!</p>
-        {% endif %}
-    {% endmacro %}
-
-    {% macro login() %}
-        <h1>Hello
-        {% if current_user.username %}
-            {{ current_user.username }}
-        {% else %}
-            Stranger
-        {% endif %}
-        </h1>
-    {% endmacro %}
-    <!--{{ welcome(name,known) }}-->
-    {{ login() }}
-    <p>The local date and time is {{moment(current_time).format('LLL')}}.</p>
-    <p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
-    {{ wtf.quick_form(form) }}
-    <div>
-        {% include '_post.html' %}
-        <div class="pagination">
-            {{ macros.pagination_widget(pagination,'.index') }}
+    {% for blog in blogs %}
+        <div class="blog" onmouseover="$(this).addClass('checked')" onmouseleave="$(this).removeClass('checked')">
+            <div class="top_line">
+                <span class="title">{{ blog.title }}</span>
+                <span class="time">{{ blog.created_at }}</span>
+            </div>
+            <div class="main">
+                {{ blog.blog_body_short }}...
+            </div>
+            <div class="bottom_line">
+                <span class="more">
+                    <a href="{{ url_for('main.blog',blog_id=blog.id) }}"> 更多></a>
+                </span>
+            </div>
         </div>
+    {% endfor %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination,'.index') }}
     </div>
+
 {% endblock %}

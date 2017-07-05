@@ -7,6 +7,7 @@ from flask_login import login_required,current_user
 from flask import render_template,request,url_for,abort,flash,redirect
 from datetime import datetime
 import time
+from bs4 import BeautifulSoup
 ALLOWED_EXTENSION = set(['png','jpeg','jpg','gif']);
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSION
@@ -56,12 +57,14 @@ def addblog():
     title = request.values.get('title')
     btype = request.values.get('btype')
     blog_body = request.values.get('blog_body')
+    BsObj = BeautifulSoup(blog_body,'html.parser')
+    blog_body_short = BsObj.get_text()[0:300] if len(BsObj.get_text())>300 else blog_body
     tags = request.values.get('tags')
     is_show_all = request.values.get('is_show_all')
     if title is None:
         title = '无标题文章'
     try:
-        blog = Blog(title=title,btype_id=1,author_id=current_user.id,is_show_all=is_show_all,tags=tags,blog_body=blog_body)
+        blog = Blog(title=title,btype_id=1,author_id=current_user.id,is_show_all=is_show_all,tags=tags,blog_body=blog_body,blog_body_short=blog_body_short)
         db.session.add(blog)
         db.session.commit()
         flash('文章发布成功')
