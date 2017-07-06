@@ -72,3 +72,4 @@ div.post-content {
 .pagination .active a,.pagination .active a:hover{background-color: #009b95;border-color: #009b95}
 
 .pagination li a{color: #009b95;border-color: #009b95}
+canvas{display: none}
