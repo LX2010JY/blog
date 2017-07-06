@@ -1,6 +1,6 @@
 /*导航条颜色修改*/
 .navbar-inverse{
-    background:linear-gradient(to bottom,#086ed5,#055db5) !important;
+    background:linear-gradient(to bottom,#009b95,#33CDC7) !important;
     border:none;
     color:white;
 }
@@ -16,9 +16,9 @@
     background-color:#086ed5 !important;
 }
 .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle{
-    border-color:#055db5;
+    border-color:#009b95;
 }
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{border-color:#fff}
 .navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover{
-    background-color:#086ed5;
+    background-color:#33CDC7;
 }

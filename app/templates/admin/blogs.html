@@ -20,7 +20,7 @@
         <td>{{item.author.username}}</td>
         <td>{{item.title}}</td>
         <td>{{item.btype.name}}</td>
-        <td>{{item.created_at}}</td>
+        <td>{{ moment(item.created_at).format("YYYY-MM-DD HH:mm:ss") }}</td>
         <td><a href="">修改</a> <a href="">删除</a> </td>
     </tr>
     {% endfor %}

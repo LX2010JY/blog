@@ -42,4 +42,33 @@ div.post-content {
     #right{display: none !important;}
     .left{padding: 0}
     .container{padding: 0 !important;}
+    .switch_canvas{right: 5px !important;}
 }
+.switch_canvas{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 25px;
+    right: 20px;
+    background-color: #EFEFEF;
+    z-index: 2000001;
+    cursor: pointer;
+    box-shadow: 0 0 10px #999 inset;
+}
+.switch_canvas:before{
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: #009900;
+    border-radius: 50%;
+    position: absolute;
+    top:19px;
+    left: 19px;
+}
+.close_canvas:before{
+    background-color: #666 !important;
+}
+.pagination .active a,.pagination .active a:hover{background-color: #009b95;border-color: #009b95}
+
+.pagination li a{color: #009b95;border-color: #009b95}

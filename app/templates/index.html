@@ -9,7 +9,7 @@
         <div class="blog" onmouseover="$(this).addClass('checked')" onmouseleave="$(this).removeClass('checked')">
             <div class="top_line">
                 <span class="title">{{ blog.title }}</span>
-                <span class="time">{{ blog.created_at }}</span>
+                <span class="time">{{ moment(blog.created_at).format('YYYY-MM-DD HH:mm') }}</span>
             </div>
             <div class="main">
                 {{ blog.blog_body_short }}...

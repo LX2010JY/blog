@@ -1,12 +1,12 @@
 .blog{border: 1px solid #EFEFEF;padding: 10px 5px;cursor: pointer;transition: all 1s;position: relative;margin: 0 20px;}
-.checked{transform: translateX(-10px) translateY(-10px) scale(1.05,1.05)}
+.checked{transform: translateX(-10px) translateY(-10px) scale(1.05,1.05);box-shadow: 0 0 20px;rgba(0,101,97,0.3)}
 .blog .top_line{line-height: 50px;background-color: #9ba5a9;overflow: hidden}
 .blog .top_line .title{display: inline-block;border-left: 5px solid #009b95;padding-left: 5px;font-size: 18px;color: #333}
 .blog .top_line .time{float: right;color: #ccc;margin-right: 10px;}
 
 .blog .main{padding: 10px 2px;color: #999;word-break: break-all}
 .blog .bottom_line{border-top: 1px solid #EFEFEF;text-align: right;padding-right: 10px;box-sizing: border-box}
-.blog .bottom_line .more{display: inline-block;background-color: #ff7a32;border-radius:5px;padding:5px 10px;color: white;margin: 10px 0}
+.blog .bottom_line .more{display: inline-block;background-color: #006561;border-radius:5px;padding:5px 10px;color: white;margin: 10px 0}
 .blog a{color: #FFF;text-decoration: none}
 .blog a:hover{text-decoration: none;color: #FFF}
 .blog a:visited{text-decoration: none;color: #FFF}
