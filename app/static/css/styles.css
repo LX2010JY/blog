@@ -40,4 +40,6 @@ div.post-content {
 }
 @media screen and (max-width: 720px) {
     #right{display: none !important;}
+    .left{padding: 0}
+    .container{padding: 0 !important;}
 }

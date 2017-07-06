@@ -4,7 +4,7 @@
 .blog .top_line .title{display: inline-block;border-left: 5px solid #009b95;padding-left: 5px;font-size: 18px;color: #333}
 .blog .top_line .time{float: right;color: #ccc;margin-right: 10px;}
 
-.blog .main{padding: 10px 2px;color: #999;}
+.blog .main{padding: 10px 2px;color: #999;word-break: break-all}
 .blog .bottom_line{border-top: 1px solid #EFEFEF;text-align: right;padding-right: 10px;box-sizing: border-box}
 .blog .bottom_line .more{display: inline-block;background-color: #ff7a32;border-radius:5px;padding:5px 10px;color: white;margin: 10px 0}
 .blog a{color: #FFF;text-decoration: none}
