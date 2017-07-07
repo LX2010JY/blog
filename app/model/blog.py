@@ -30,5 +30,16 @@ class Blog(db.Model):
     update_at = db.Column(db.DateTime,default=datetime.utcnow)
     author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 
+    def to_json(self):
+        blog_json = {
+            'id' : self.id,
+            'title' : self.title,
+            'blog_body' : self.blog_body,
+            'blog_body_short' : self.blog_body_short,
+            'tags' : self.tags,
+            'is_show_all' : self.is_show_all,
+            'created_at' : str(self.created_at)
+        }
+        return blog_json
     def __repr__(self):
         return '<Blog 《{0}》by:{1}>'.format(self.title,self.author.username)

@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template,session,redirect,url_for,abort,flash,request,send_from_directory
+from flask import render_template,session,redirect,url_for,abort,flash,request,send_from_directory,jsonify
 from flask_login import login_required,current_user
 from werkzeug import secure_filename
 from . import main
@@ -11,6 +11,7 @@ import os
 import json
 from datetime import datetime
 import time
+import requests
 from bs4 import BeautifulSoup
 ALLOWED_EXTENSION = set(['png','jpeg','jpg','gif']);
 def allowed_file(filename):
@@ -143,4 +144,3 @@ def spider():
         else:
             blog.pics = ''
     return render_template('spider.html',pagination=pagination,blogs=blogs,hide_right=True)
-
