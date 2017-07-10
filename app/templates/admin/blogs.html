@@ -21,11 +21,45 @@
         <td>{{item.title}}</td>
         <td>{{item.btype.name}}</td>
         <td>{{ moment(item.created_at).format("YYYY-MM-DD HH:mm:ss") }}</td>
-        <td><a href="">修改</a> <a href="">删除</a> </td>
+        <td>
+            <!--<a href="{{ url_for('admin.update_blog',id=item.id) }}">修改</a>-->
+            <!--<a href="javascript:void(0)" onclick="del_blog('{{ item.id }}');">删除</a> -->
+            <!--<button onclick="del_blog('{{ item.id }}');" class="layui-btn layui-btn-small">删除</button>-->
+          <div class="layui-btn-group">
+            <!--<button class="layui-btn layui-btn-small"><i class="layui-icon"></i></button>-->
+              <a href="{{ url_for('admin.update_blog',id=item.id) }}">
+                  <button class="layui-btn layui-btn-small"><i class="layui-icon"></i></button>
+              </a>
+            <button onclick="del_blog('{{ item.id }}');" class="layui-btn layui-btn-small"><i class="layui-icon"></i></button>
+            <!--<button class="layui-btn layui-btn-small"><i class="layui-icon"></i></button>-->
+          </div>
+        </td>
     </tr>
     {% endfor %}
 </table>
 <div class="pagination">
     {{ macros.pagination_widget(pagination,'admin.blogs') }}
 </div>
+{% endblock %}
+{% block scripts %}
+{{super()}}
+<script>
+    function del_blog(id) {
+        layer.confirm('你确定删除此条博客吗？',{
+            btn : ['确定','取消']
+        },function () {
+            layer.load();
+            $.post('{{ url_for("admin.delblog")}}',{"id":id},function (ret) {
+                layer.closeAll('loading');
+                if(ret=='ok') {
+                    layer.msg('删除博客成功！', {icon: 1},function () {
+                        window.location.reload();
+                    });
+                } else {
+                    layer.msg('删除博客失败',{icon:2});
+                }
+            });
+        })
+    }
+</script>
 {% endblock %}

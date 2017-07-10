@@ -6,8 +6,18 @@
 {{ super() }}
 <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/admin.css') }}" />
 <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.jpg') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='js/ext/layui/css/layui.css') }}" />
 <script src="{{ url_for('static',filename='js/admin.js') }}"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="{{ url_for('static',filename='js/ext/layui/layui.js') }}"></script>
+<script src="{{ url_for('static',filename='js/ext/layui/layui.js') }}"></script>
+
+<script>
+    $(function () {
+        var layer = layui.layer;
+        var form = layui.form();
+    })
+</script>
 {% endblock %}
 {% block content %}
 <div style="padding: 0;margin: 0">

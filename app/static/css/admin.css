@@ -1,5 +1,5 @@
 body{font-family: Monaco ,"Microsoft Himalaya"}
-.left_bar{position: fixed;left: 0;top:0;bottom: 0;width: 155px;background-color: #333;color:white;border-right: 5px solid #FFF}
+.left_bar{position: fixed;left: 0;top:0;bottom: 0;width: 155px;background-color: #393D49;color:white;border-right: 5px solid #FFF}
 .left_bar .avatar{text-align: center;margin: 50px auto;}
 .left_bar .menu{list-style-type: none;margin: 0;padding: 0}
 .left_bar .menu .item{line-height: 50px;font-size: 16px;cursor: pointer;text-align: center}
@@ -11,7 +11,7 @@ body{font-family: Monaco ,"Microsoft Himalaya"}
 .menu li.active:before{content: '';border-top:5px solid #666;border-bottom: 5px solid #666;border-right:5px solid #FFF;width: 0;height: 0;position: absolute;top:20px;right: 0;}
 .main{padding-left: 160px;width: 100%;padding-right: 10px;padding-bottom: 50px;background-color: #fff;margin-top: 70px;}
 
-.nav{height: 50px;line-height: 50px;background-color: #333;color:#fff;position:fixed;left: 155px;right: 0;top:0;padding-left: 5px;padding-right: 10px;white-space: nowrap;z-index: 9999}
+.nav{height: 50px;line-height: 50px;background-color: #393D49;color:#fff;position:fixed;left: 155px;right: 0;top:0;padding-left: 5px;padding-right: 10px;white-space: nowrap;z-index: 9999}
 .admin-title{font-size: 20px;font-weight: bold;float: left}
 .admin-title a{color: #FFF}
 .admin-title a:hover{text-decoration: none;color: #FFF}

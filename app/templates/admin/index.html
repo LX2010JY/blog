@@ -20,13 +20,13 @@
 
 {% endblock %}
 {% block page_content %}
-<form action="{{ url_for('admin.addblog') }}" method="post">
+<form action="{% if blog %} {{ url_for('admin.updblog',id=blog.id) }} {% else %}{{ url_for('admin.addblog') }}{% endif %}" method="post">
     <div class="row clear">
         <div class="col-md-8">
             <div class="data-one">
                 <label for="title">文章标题：</label>
                 <div id="title_block" class="title_block laser">
-                    <input class="title" id="title" name="title" onfocus="Ad.ShowLaserBean();return false;" onblur="Ad.HideLaserBean();return false;" placeholder="无标题博客" />
+                    <input class="title" id="title" name="title" onfocus="Ad.ShowLaserBean();return false;" onblur="Ad.HideLaserBean();return false;" placeholder="无标题博客" value="{% if blog %}{{ blog.title }} {% endif %}"/>
                 </div>
             </div>
         </div>
@@ -45,7 +45,11 @@
     <div class="data-three">
         <label for="blog_body">文章主体：</label>
         <div class="editor">
-            <textarea id="blog_body" name="blog_body" style="width:100%;" placeholder="请输入内容..." autofocus></textarea>
+            <textarea id="blog_body" name="blog_body" style="width:100%;" placeholder="请输入内容..." autofocus>
+                {% if blog %}
+                {{blog.blog_body}}
+                {% endif %}
+            </textarea>
         </div>
     </div>
     <div class="data-four">
@@ -62,7 +66,11 @@
         </select>
     </div>
     <div class="part-last">
+        {% if blog %}
+        <button name="sub" id="sub" class="btn btn-danger">确认修改</button>
+        {% else %}
         <button name="sub" id="sub" class="btn btn-primary">确认发布</button>
+        {% endif %}
     </div>
 </form>
 {% endblock %}

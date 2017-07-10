@@ -1,6 +1,7 @@
 from . import admin
 from .. import db
 from ..model.blog import Blog
+from ..main.errors import page_not_found,internal_server_error
 import os,json
 from werkzeug import secure_filename
 from flask_login import login_required,current_user
@@ -16,11 +17,22 @@ def allowed_file(filename):
 @login_required
 def index():
     return render_template('admin/index.html',type=1)
+
+@admin.route('/upd/blog/<int:id>')
+@login_required
+def update_blog(id=0):
+    blog = Blog.query.filter_by(id=id).first()
+    if blog is None:
+        abort(404)
+    else:
+        return render_template('admin/index.html',type=1,blog=blog)
+
+
 @admin.route('/blogs')
 @login_required
 def blogs():
     page = request.args.get('page',1,type=int)
-    pagination = Blog.query.order_by(Blog.created_at.desc()).paginate(page,per_page=10,error_out=False)
+    pagination = Blog.query.filter_by(is_del=0).order_by(Blog.created_at.desc()).paginate(page,per_page=10,error_out=False)
     list = pagination.items
     xh = 0
     for item in list:
@@ -72,3 +84,47 @@ def addblog():
         flash('文章发布失败了~~节哀')
 
     return redirect(url_for('admin.blogs'))
+
+@admin.route('/updblog/<int:id>',methods=['GET','POST'])
+@login_required
+def updblog(id):
+    title = request.values.get('title')
+    btype = request.values.get('btype')
+    blog_body = request.values.get('blog_body')
+    BsObj = BeautifulSoup(blog_body,'html.parser')
+    blog_body_short = BsObj.get_text()[0:300] if len(BsObj.get_text())>300 else blog_body
+    tags = request.values.get('tags')
+    is_show_all = request.values.get('is_show_all')
+    if title is None:
+        title = '无标题文章'
+    try:
+        blog = Blog.query.filter_by(id=id).first()
+        if blog is None:
+            blog = Blog(title=title,btype_id=1,author_id=current_user.id,is_show_all=is_show_all,tags=tags,blog_body=blog_body,blog_body_short=blog_body_short)
+            db.session.add(blog)
+            db.session.commit()
+            flash('文章发布成功')
+        else:
+            blog.title = title
+            blog.is_show_all = is_show_all
+            blog.tags = tags
+            blog.blog_body = blog_body
+            blog.blog_body_short = blog_body_short
+            blog.update_at = datetime.utcnow()
+            db.session.add(blog)
+            db.session.commit()
+            flash('文章修改成功')
+    except:
+        flash('文章修改失败了~~节哀')
+
+    return redirect(url_for('admin.blogs'))
+
+@admin.route('/delblog',methods=['post'])
+@login_required
+def delblog():
+    id = request.values.get('id')
+    blog = Blog.query.filter_by(id=id).first()
+    blog.is_del = 1
+    db.session.add(blog)
+    db.session.commit()
+    return 'ok'

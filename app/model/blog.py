@@ -25,6 +25,7 @@ class Blog(db.Model):
     blog_body = db.Column(db.Text)
     blog_body_short = db.Column(db.Text)
     tags = db.Column(db.String(255))
+    is_del = db.Column(db.Integer,default=0)
     is_show_all = db.Column(db.Integer)
     created_at = db.Column(db.DateTime,default=datetime.utcnow)
     update_at = db.Column(db.DateTime,default=datetime.utcnow)
