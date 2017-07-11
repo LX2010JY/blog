@@ -47,3 +47,27 @@ a:visited{text-decoration: none}
     width: 100% !important;
 }
 .main label{font-size: 18px;color:#333}
+.main .types{width: 200px;position: absolute;top: 40px;left: 0;list-style-type: none;padding:0;margin: 0;background-color: #FFF;border: 1px solid #e0e0e0;display: none}
+.main .types li{padding: 10px 10px;padding-left: 15px;cursor: pointer;overflow: hidden;border-bottom: 1px solid #e0e0e0;position: relative}
+.main .types li input{height: 24px;}
+.main .types li:hover{background-color: #5FB878;color:#FFF}
+.main .types li.checked{background-color: #FF7A32 !important;color: white}
+.main .types li.remove{
+    animation: deltype 0.3s normal;
+    position: relative;
+    background-color: #5FB878;
+    color: #FFF;
+    border: none;
+}
+@keyframes deltype {
+    0% {left: 0;top:0}
+    20% {left: -100px;}
+    /*50% {left: 0}*/
+    100%{left: 200px}
+}
+.main .checked .delete{display: none}
+.main .types .delete{font-size: 20px;float: right;transition: all 0.3s}
+.main .types .delete:hover{transform: scale(2,2)}
+
+.main .types .sure{transition: all 0.3s}
+.main .types .sure:hover{color: #ff2222}

@@ -20,7 +20,7 @@
 
 {% endblock %}
 {% block page_content %}
-<form action="{% if blog %} {{ url_for('admin.updblog',id=blog.id) }} {% else %}{{ url_for('admin.addblog') }}{% endif %}" method="post">
+<form onsubmit="Ad.addblog();" action="{% if blog %} {{ url_for('admin.updblog',id=blog.id) }} {% else %}{{ url_for('admin.addblog') }}{% endif %}" method="post">
     <div class="row clear">
         <div class="col-md-8">
             <div class="data-one">
@@ -33,12 +33,31 @@
         <div class="col-md-4">
             <div class="data-two">
                 <label for="btype">文章类型：</label>
-                <select id="btype" name="btype" class="form-control" style="width: 200px;height: 40px;">
-                    <option value="0">技术学习</option>
-                    <option value="1">日记</option>
-                    <option value="2">生活</option>
-                    <option value="3">未知</option>
-                </select>
+                <div style="position: relative;z-index: 8888">
+                    {% if blog %}
+                    <input type="text" id="btype_show" readonly class="form-control" style="width: 200px;height: 40px;cursor: pointer;border-radius: 0" placeholder="请选择文章类型" value="{{blog.btype.name}}" onclick="$('.types').slideDown()">
+                    <input type="hidden" id="btype" name="btype" value="{{blog.btype.id}}"/>
+                    {% else %}
+                    <input type="text" id="btype_show" readonly class="form-control" style="width: 200px;height: 40px;cursor: pointer;border-radius: 0" placeholder="请选择文章类型">
+                    <input type="hidden" id="btype" name="btype"/>
+                    {% endif %}
+                    <div class="types">
+                        <ul id="types">
+                            {% for type in btypes %}
+                            <li id="type_{{type.id}}" class="type {% if blog %}{% if type.id==blog.btype.id %} checked {% endif %} {% endif %}" data-id="{{type.id}}" onclick="btype.checkType('{{type.id}}')">
+                                <span id="blog_type_{{type.id}}">{{type.name}}</span>
+                                <input id="blog_type_upd_{{type.id}}" type="text" class="form-control" style="width: 150px;display: none" value="{{type.name}}">
+                                <span class="delete" onclick="btype.removeType('{{type.id}}')">&times;</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <div style="color:#FFF;text-align: center;">
+                            <span style="width: 100%" class="layui-btn" onclick="btype.addOne();return false;">
+                              <i class="layui-icon">&#xe608;</i> 添加
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -79,6 +98,7 @@
 {{super()}}
 <script>
     $(function () {
+        btype.num = parseInt("{{ btypes|length }}");
         Ad.createEditor();
     })
 </script>

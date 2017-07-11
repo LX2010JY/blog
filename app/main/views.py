@@ -20,7 +20,7 @@ def allowed_file(filename):
 @main.route('/', methods=['GET', 'POST'])
 def index():
     page = request.args.get('page',type=int)
-    pagination = Blog.query.order_by(Blog.created_at.desc()).paginate(page,per_page=10,error_out=False)
+    pagination = Blog.query.filter_by(is_del=0).order_by(Blog.created_at.desc()).paginate(page,per_page=10,error_out=False)
     blogs = pagination.items
     if len(blogs)==0:
         abort(404)
