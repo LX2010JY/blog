@@ -35,6 +35,7 @@ div.post-content {
 @media screen and (min-width: 720px){
     #right{
         min-height: 500px;background-color: #EFEFEF;
+        padding: 0;
         border:1px solid #bbb;border-radius: 2px;text-align: center;
     }
 }
@@ -73,3 +74,11 @@ div.post-content {
 
 .pagination li a{color: #009b95;border-color: #009b95}
 canvas{display: none}
+
+.right .right-bar{list-style-type: none;width: 100%;padding: 0;margin: 0}
+.right .right-bar .blog-type{border-bottom: 1px solid #FFF}
+.right .right-bar .type-title{background-color:#2F4056;color:#FFF;text-align: left;line-height: 30px;font-weight:bold;padding: 0 10px;display: block;cursor: pointer}
+.right .right-bar .type{list-style-type: none;margin: 0;background-color: #FFF;}
+.right-bar .type li{line-height: 35px;color: #FF7A32;cursor: pointer;text-align: left}
+
+.right-bar .type li a:hover{color: tomato;}

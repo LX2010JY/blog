@@ -6,7 +6,7 @@ from . import main
 from .forms import NameForm,EditProfileForm,PostForm
 from .. import  db
 from ..models import User,Post,Mblog
-from ..model.blog import Blog
+from ..model.blog import Blog,Blog_Type
 import os
 import json
 from datetime import datetime
@@ -16,6 +16,10 @@ from bs4 import BeautifulSoup
 ALLOWED_EXTENSION = set(['png','jpeg','jpg','gif']);
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSION
+@main.before_request
+def get_right():
+    btype = Blog_Type.query.order_by(Blog_Type.id.desc()).all()
+    session['btype'] = [t.to_json() for t in btype]
 
 @main.route('/', methods=['GET', 'POST'])
 def index():

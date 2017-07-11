@@ -15,6 +15,13 @@ class Blog_Type(db.Model):
     name = db.Column(db.String(20),unique=True)
     blogs = db.relationship('Blog',backref='btype',lazy="dynamic")
 
+    def to_json(self):
+        bt_json = {
+            'id' : self.id,
+            'name' : self.name
+        }
+        return bt_json
+
     def __repr__(self):
         return '<Blog_Type {0}>'.format(self.name)
 class Blog(db.Model):

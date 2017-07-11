@@ -74,10 +74,32 @@
                 {% endblock %}
             </div>
             <div id="right" class="col-md-3 right">
-                <h5>分类</h5>
-                <h5>标签</h5>
-                <h5>最新</h5>
-                <h5>未知</h5>
+                <ul class="right-bar">
+                    <li class="blog-type">
+                        <span class="type-title" onclick="In.SwitchStatus('atype')">文章分类</span>
+                        <ul class="type" id="atype">
+                            {% for t in session['btype'] %}
+                            <li>
+                                <a>
+                                    <span class="glyphicon glyphicon-book"></span>  {{ t.name }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                            <li style="text-align: right;padding-right: 10px;">
+                                <a> 更多>> </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="blog-type">
+                        <span class="type-title">标签</span>
+                    </li>
+                    <li class="blog-type">
+                        <span class="type-title">最新</span>
+                    </li>
+                    <li class="blog-type">
+                        <span class="type-title">未知</span>
+                    </li>
+                </ul>
             </div>
         </div>
     {% else %}
@@ -95,4 +117,5 @@
 {% block html %}
 {{ super() }}
 <script src="{{url_for('static',filename='js/dotline.js')}}"></script>
+<script src="{{ url_for('static',filename='js/index.js') }}"></script>
 {% endblock %}
