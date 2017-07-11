@@ -38,7 +38,7 @@
                     <input type="text" id="btype_show" readonly class="form-control" style="width: 200px;height: 40px;cursor: pointer;border-radius: 0" placeholder="请选择文章类型" value="{{blog.btype.name}}" onclick="$('.types').slideDown()">
                     <input type="hidden" id="btype" name="btype" value="{{blog.btype.id}}"/>
                     {% else %}
-                    <input type="text" id="btype_show" readonly class="form-control" style="width: 200px;height: 40px;cursor: pointer;border-radius: 0" placeholder="请选择文章类型">
+                    <input type="text" onclick="$('.types').slideDown()"  id="btype_show" readonly class="form-control" style="width: 200px;height: 40px;cursor: pointer;border-radius: 0" placeholder="请选择文章类型">
                     <input type="hidden" id="btype" name="btype"/>
                     {% endif %}
                     <div class="types">
